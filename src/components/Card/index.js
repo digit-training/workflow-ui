@@ -1,6 +1,5 @@
 import "./index.css"
-​
-​
+
 export default function Card({functionality}) {
     return (
       <div className="card-container">

@@ -1,14 +1,18 @@
 import "./Playground.css";
-import Card from "../component/card";
+import DraggableBox from "../components/DraggableBox";
+import DropTargetComponent from "../components/DroppableBox";
 
 export default function Playground() {
   return (
     <div className="playground-container">
       <div className="left-partition">
-        <Card/>
+        <DraggableBox id={1} text={"State"}/>
+        <DraggableBox id={2} text={"Action"}/>
+        <DraggableBox id={2} text={"Role"}/>
       </div>
-      <div className="right-partition">
-      </div>
+      <DropTargetComponent/>
+      {/* <div className="right-partition">
+      </div> */}
     </div>
   );
 }
