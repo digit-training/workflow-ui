@@ -14,7 +14,6 @@ const DraggableBox = ({ id, text }) => {
   
     return (
       <div ref={(node) => preview(drag(node))} style={{ opacity: isDragging ? 0.5 : 1 }}>
-        {/* {console.log(ItemTypes[`${text}`])} */}
         <Card functionality={text}/>
       </div>
     );
