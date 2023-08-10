@@ -1,7 +1,7 @@
 import { useDrag } from "react-dnd";
 import { ItemTypes,ItemData} from "../../constants";
 import Card from "../Card";
-
+// import WrapperCard from "../Card/WrapperCard";
 const DraggableBox = ({ id, text }) => {
 
     const [{ isDragging }, drag, preview] = useDrag({
