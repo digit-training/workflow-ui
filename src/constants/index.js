@@ -8,7 +8,7 @@ export const ItemTypes = {
     Role:"role"
 }
 export const ItemData = {
-    "State" : state,
-    "Action": action,
-    "Role"  : role
+    State : state,
+    Action: action,
+    Role  : role
 }

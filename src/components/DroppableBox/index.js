@@ -3,6 +3,7 @@ import { ItemTypes } from "../../constants";
 import { useState } from "react";
 import { ItemData } from "../../constants";
 import Card from "../Card";
+import WrapperCard from "../Card/WrapperCard";
 
 
 const DropTargetComponent = () => {
@@ -31,7 +32,7 @@ const DropTargetComponent = () => {
         {canDrop ? 'Release to drop' : 'Drag compatible items here'}
         {
             states.map( (data) => {
-                return <Card functionality={data}/>
+                return <WrapperCard functionality={data}/>
             })
         }
       </div>
