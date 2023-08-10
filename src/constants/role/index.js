@@ -1,3 +1,3 @@
-export const role = {
-    role : String
+export const Role = {
+    role:"ROLE"
 }

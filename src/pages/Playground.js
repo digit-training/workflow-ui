@@ -9,10 +9,10 @@ export default function Playground() {
         <DraggableBox id={1} text={"State"}/>
         <DraggableBox id={2} text={"Action"}/>
         <DraggableBox id={2} text={"Role"}/>
+        <DraggableBox id={2} text={"Status"}/>
+
       </div>
       <DropTargetComponent/>
-      {/* <div className="right-partition">
-      </div> */}
     </div>
   );
 }
