@@ -50,6 +50,10 @@ const Card = () => {
     { id: 1, text: 'Buy groceries' },
     { id: 2, text: 'Pay bills' },
     { id: 3, text: 'Walk the dog' },
+    { id: 4, text: 'Buy groceries' },
+    { id: 5, text: 'Pay bills' },
+    { id: 6, text: 'Walk the dog' },
+
   ];
 
   return <TodoList todos={todos} />;

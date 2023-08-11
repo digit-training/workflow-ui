@@ -1,0 +1,6 @@
+.form-container{
+    max-width: fit-content;
+    max-height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
