@@ -7,7 +7,7 @@ import TriangleCard from '../TriangleCard';
 const WrapperCard = ({functionality }) => {
   let cardComponent;
 
-  switch (functionality) {
+  switch (functionality.toLowerCase()) {
     case 'role':
       cardComponent = <CircleCard functionality={functionality} />;
       break;
