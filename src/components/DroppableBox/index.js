@@ -78,6 +78,9 @@ const DropTargetComponent = () => {
     useEffect(()=>{
       var workflowObject = localStorage.getItem("wf");
       if(workflowObject)dispatch({type:"RENDERED",payload:workflowObject});
+      dispatch({type: "SUBMITTED", payload : ""});
+
+      // set the droppedElement to null here
     },[])
 
 
