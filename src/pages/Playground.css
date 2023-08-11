@@ -7,6 +7,7 @@
   flex-direction: row;
   height: 100vh;
   width: 100vw;
+  overflow: auto;
 }
 
 .left-partition {
@@ -17,4 +18,5 @@
 .right-partition {
   background-color: pink;
   flex: 70%;
+  overflow: auto;
 }
