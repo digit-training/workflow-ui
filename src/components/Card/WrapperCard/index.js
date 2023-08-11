@@ -3,6 +3,7 @@ import CircleCard from '../CircleCard';
 import SquareCard from '../SquareCard'; 
 import RhombusCard from '../RhombusCard'; 
 import TriangleCard from '../TriangleCard'; 
+import './index.css'
 
 const WrapperCard = ({functionality }) => {
   let cardComponent;

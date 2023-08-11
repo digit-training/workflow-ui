@@ -11,13 +11,27 @@
 
 .left-partition {
   background-color: bisque;
-  flex: 30%;
+  flex: 20%;
 }
 
 .right-partition {
   background-color: pink;
-  flex: 70%;
+  flex: 80%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
 }
+
+
+
+/* 
+@media (max-width: 768px) {
+  .playground-container {
+    flex-direction: row; 
+  }
+
+  .right-partition {
+    flex-direction: column; 
+    align-items: center; 
+  }
+} */
