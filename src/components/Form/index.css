@@ -3,4 +3,14 @@
     max-height: fit-content;
     display: flex;
     flex-direction: column;
+    padding: 16px;
+
+}
+
+.label{
+    padding : 8px
+}
+
+.input-container{
+    margin : 5px
 }

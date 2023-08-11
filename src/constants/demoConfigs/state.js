@@ -4,6 +4,10 @@ export const state = {
     applicationStatus: String,
     docUploadRequired: Boolean,
     isStartState: Boolean,
-    isTerminatedState: Boolean
-    // actions:[]
+    isTerminatedState: Boolean,
+    actions:[
+        {
+            "action": String,
+        }
+    ]
 }
