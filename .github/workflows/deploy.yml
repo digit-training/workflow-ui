@@ -3,12 +3,12 @@ name: Test and deploy
 on:
   push:
     branches:
-      - master
+      # - master
       - develop
 
   pull_request:
     branches:
-      - master
+      # - master
       - develop
 
 jobs:

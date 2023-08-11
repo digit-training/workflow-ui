@@ -1,9 +1,11 @@
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../constants";
 import { useEffect, useState,useReducer } from "react";
+import { TypeConfigMap } from "../../constants";
 import { ItemData } from "../../constants";
 import Card from "../Card";
 import WrapperCard from "../Card/WrapperCard";
+import Popup from "../Popup";
 import CircleCard from "../Card/CircleCard";
 import DiamondCard from "../Card/RhombusCard";
 import SquareCard from "../Card/SquareCard";
@@ -13,44 +15,49 @@ const initialState = {
   states : [],
   actions: [],
   roles  : [],
+  droppedElement : null
 };
 
 const reducer = (state,action) => {
   console.log(action.type);
   if(action.type === "State")
   {
-    // console.log(action.payload);
     return {
       ...state,
-      states : [...state.states , JSON.parse(action.payload)]
+      states : [...state.states , JSON.parse(action.payload)],
+      droppedElement : action.type
     };
   }
   else if(action.type === "Action")
   {
     return {
       ...state,
-      actions : [...state.actions , JSON.parse(action.payload)]
+      actions : [...state.actions , JSON.parse(action.payload)],
+      droppedElement : action.type
+
     };
   }
   else if(action.type === "Role")
   {
     return {
       ...state,
-      roles : [...state.roles , JSON.parse(action.payload)]
+      roles : [...state.roles , JSON.parse(action.payload)],
+      droppedElement : action.type
+
     };
   }
   else if(action.type === "RENDERED")
   {
     console.log("Setting the state ot value stored in local storage");
     var obj = JSON.parse(action.payload);
-    // action.payload is String Parse it then store it
-    // console.log("The value stored in Local Storage is"+typeof action.payload);
-    // console.log("My current state is"+JSON.stringify(state) );
     return obj;
   }
   else
   {
-    return state;
+    return {
+      ...state,
+      droppedElement : null
+    };
   }
 }
 
@@ -62,7 +69,6 @@ const DropTargetComponent = () => {
     useEffect(()=>{
 
       var workflowObject = localStorage.getItem("wf");
-      // console.log(workflowObject)
       if(workflowObject)dispatch({type:"RENDERED",payload:workflowObject});
       
     },[])
@@ -73,9 +79,9 @@ const DropTargetComponent = () => {
       drop: () => {
 
         dispatch({type:type , payload : JSON.stringify(data) });
-        // console.log(JSON.stringify(state));
         localStorage.setItem("wf",JSON.stringify(state));
-
+        // another state for popUP
+        // reset the state to null again 
       },
       collect: (monitor) => ({
         data : monitor.getItem(),
@@ -88,6 +94,9 @@ const DropTargetComponent = () => {
     return (
       <div className="right-partition" ref={drop} style={{ border: '1px dashed black' }}>
         {canDrop ? 'Release to drop' : 'Drag compatible items here'}
+        {
+        state.droppedElement!=null ? <Popup handleSubmit={dispatch} attribute={state.droppedElement} config={TypeConfigMap[state.droppedElement]}/>: 
+        <>
         {
           state["states"].map((data)=>{
               return <WrapperCard functionality={data.state}/>
@@ -103,6 +112,8 @@ const DropTargetComponent = () => {
             return <WrapperCard functionality={data.role}/>
           })
         }
+        </>
+        }      
       </div>
     );
   };
