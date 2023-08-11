@@ -4,14 +4,18 @@ import { state } from "../../constants/demoConfigs/state";
 import React, { useState } from 'react';
 import Form from "../Form";
 
-export default function Popup({attribute ,config , handleSubmit}){
-  const [formData, setFormData] = useState();
-  
+export default function Popup({type,attribute ,config , dispatch}){
+
+  const [formData, setFormData] = useState({});
 
   const handleFormChange = (updatedData) => {
-    setFormData(updatedData);
+
     // set to reducer as well
-    handleSubmit({type: attribute, payload : JSON.stringify(formData)});
+    setFormData(updatedData);
+    console.log("Form is submitted !!!");
+    console.log(attribute,formData , JSON.stringify(updatedData))
+    dispatch({type: attribute, payload : JSON.stringify(updatedData)});
+    dispatch({type: "SUBMITTED", payload : ""});
     // change the 
   };
 
@@ -19,7 +23,7 @@ export default function Popup({attribute ,config , handleSubmit}){
     <div className="custom-popup">
       <div className="popup-content">
       <h1>Add {attribute}</h1>
-      <Form config = {config} formData={state} onFormChange={handleFormChange} />
+      <Form type={type} dispatch = {dispatch} config = {config} formData={state} onFormChange={handleFormChange} />
       </div>
     </div>
   );

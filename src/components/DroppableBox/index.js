@@ -19,41 +19,50 @@ const initialState = {
 };
 
 const reducer = (state,action) => {
-  console.log(action.type);
+  // console.log(action.type,action.payload) ;
   if(action.type === "State")
   {
-    return {
+    const updatedState= {
       ...state,
       states : [...state.states , JSON.parse(action.payload)],
       droppedElement : action.type
     };
+    localStorage.setItem("wf",JSON.stringify(updatedState));
+    return updatedState;
   }
   else if(action.type === "Action")
   {
-    return {
+    const updatedState = {
       ...state,
       actions : [...state.actions , JSON.parse(action.payload)],
       droppedElement : action.type
 
     };
+    localStorage.setItem("wf",JSON.stringify(updatedState));
+    return updatedState;
   }
   else if(action.type === "Role")
   {
-    return {
+    console.log("Role action is dispatched" + (action.payload));
+    const updatedState = {
       ...state,
       roles : [...state.roles , JSON.parse(action.payload)],
       droppedElement : action.type
 
     };
+    localStorage.setItem("wf",JSON.stringify(state));
+    return updatedState;
+
   }
   else if(action.type === "RENDERED")
   {
-    console.log("Setting the state ot value stored in local storage");
+    console.log("local storage state synced up");
     var obj = JSON.parse(action.payload);
     return obj;
   }
-  else
+  else if(action.type === "SUBMITTED")
   {
+    console.log("SUBMITTED ACTION IS PERFORMED"+JSON.stringify(state));
     return {
       ...state,
       droppedElement : null
@@ -67,10 +76,8 @@ const DropTargetComponent = () => {
 
     // this will fire then component will render or vice versa ?
     useEffect(()=>{
-
       var workflowObject = localStorage.getItem("wf");
       if(workflowObject)dispatch({type:"RENDERED",payload:workflowObject});
-      
     },[])
 
 
@@ -78,8 +85,8 @@ const DropTargetComponent = () => {
       accept: [ItemTypes.Action, ItemTypes.Role,ItemTypes.State],
       drop: () => {
 
-        dispatch({type:type , payload : JSON.stringify(data) });
-        localStorage.setItem("wf",JSON.stringify(state));
+        dispatch({type:type , payload : null });
+        // localStorage.setItem("wf",JSON.stringify(state));
         // another state for popUP
         // reset the state to null again 
       },
@@ -95,23 +102,27 @@ const DropTargetComponent = () => {
       <div className="right-partition" ref={drop} style={{ border: '1px dashed black' }}>
         {canDrop ? 'Release to drop' : 'Drag compatible items here'}
         {
-        state.droppedElement!=null ? <Popup handleSubmit={dispatch} attribute={state.droppedElement} config={TypeConfigMap[state.droppedElement]}/>: 
+        state.droppedElement!=null ? <Popup type={state.droppedElement} dispatch={dispatch} attribute={state.droppedElement} config={TypeConfigMap[state.droppedElement]}/>: 
         <>
         {
           state["states"].map((data)=>{
-              return <WrapperCard functionality={data.state}/>
+            return data ? <SquareCard functionality={data.state}/> : <></>
+              // return <WrapperCard functionality={data.state}/>
           })
         }
         {
           state["actions"].map((data)=>{
-            return <WrapperCard functionality={data.action}/>
+            return data ? <TriangleCard functionality={data.action}/> : <></>
+            // return <WrapperCard functionality={data.action}/>
           })
         }
         {
           state["roles"].map((data)=>{
-            return <WrapperCard functionality={data.role}/>
+            return (data) ? <CircleCard functionality={data.roles}/> : <></>
+            // return <WrapperCard functionality={data.role}/>
           })
         }
+        {console.log("My final state is"+ JSON.stringify(state) )}
         </>
         }      
       </div>
