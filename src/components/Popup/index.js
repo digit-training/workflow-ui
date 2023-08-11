@@ -77,10 +77,11 @@ export default function Popup({attribute ,config}){
   };
 
   return (
-    <div className="popup-container">
+    <div className="custom-popup">
+      <div className="popup-content">
       <h1>{attribute}</h1>
       <Form config = {config} formData={state} onFormChange={handleFormChange} />
-      {/* <pre>{JSON.stringify(formData, null, 2)}</pre> */}
+      </div>
     </div>
   );
 };
