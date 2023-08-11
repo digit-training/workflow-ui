@@ -1,11 +1,10 @@
 import "./index.css"
-import React from 'react';
+import React, { useState } from 'react';
 
-const Form = ({ config, formData, onFormChange }) => {
-    const handleChange = (key, value) => {
-        const updatedData = { ...formData, [key]: value };
-        onFormChange(updatedData);
-      };
+const Form = ({ config, onFormChange }) => {
+  const handleChange = (key, value) => {
+    setData((prevData) => ({ ...prevData, [key]: value }));
+  };
 
       function formatString(str) {
         return str
@@ -15,6 +14,12 @@ const Form = ({ config, formData, onFormChange }) => {
             return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
           })
           .join(" ");
+      }
+
+      const [data, setData] =  useState({});
+
+      const saveData = () =>{
+        console.log(data);
       }
       
     
@@ -66,7 +71,7 @@ const Form = ({ config, formData, onFormChange }) => {
               {Array.isArray(config[key]) ? (
                 <select
                   className="input-container"
-                  value={formData[key] || ''}
+                  // value={formData[key] || ''}
                   onChange={(e) => handleChange(key, e.target.value)}
                 >
                   <option value="">Select an option</option>
@@ -80,7 +85,7 @@ const Form = ({ config, formData, onFormChange }) => {
                 <input
                   className="input-container"
                   type="text"
-                  value={formData[key] || ''}
+                  // value={formData[key] || ''}
                   onChange={(e) => handleChange(key, e.target.value)}
                 />
               ) : config[key] === Boolean ? (
@@ -90,7 +95,7 @@ const Form = ({ config, formData, onFormChange }) => {
                       className="input-container"
                       type="radio"
                       value="true"
-                      checked={formData[key] === true}
+                      // checked={formData[key] === true}
                       onChange={() => handleChange(key, true)}
                     />
                     True
@@ -100,7 +105,7 @@ const Form = ({ config, formData, onFormChange }) => {
                       className="input-container"
                       type="radio"
                       value="false"
-                      checked={formData[key] === false}
+                      // checked={formData[key] === false}
                       onChange={() => handleChange(key, false)}
                     />
                     False
@@ -109,6 +114,7 @@ const Form = ({ config, formData, onFormChange }) => {
               ) : null}
             </div>
           ))}
+          <button onClick={saveData}>Submit</button>
         </div>
       );
       

@@ -6,6 +6,7 @@ import Form from "../Form";
 
 export default function Popup({attribute ,config , handleSubmit}){
   const [formData, setFormData] = useState();
+  
 
   const handleFormChange = (updatedData) => {
     setFormData(updatedData);
