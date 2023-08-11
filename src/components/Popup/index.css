@@ -25,5 +25,11 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 100px;
+    min-height: 100px;
   }
   

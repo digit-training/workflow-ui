@@ -18,7 +18,7 @@ export default function Popup({attribute ,config , handleSubmit}){
   return (
     <div className="custom-popup">
       <div className="popup-content">
-      <h1>{attribute}</h1>
+      <h1>Add {attribute}</h1>
       <Form config = {config} formData={state} onFormChange={handleFormChange} />
       </div>
     </div>

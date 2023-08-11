@@ -92,7 +92,7 @@ const Form = ({ config, onFormChange }) => {
                 <div>
                   <label>
                     <input
-                      className="input-container"
+                      className="input-radio"
                       type="radio"
                       value="true"
                       // checked={formData[key] === true}
@@ -102,7 +102,7 @@ const Form = ({ config, onFormChange }) => {
                   </label>
                   <label>
                     <input
-                      className="input-container"
+                      className="input-radio"
                       type="radio"
                       value="false"
                       // checked={formData[key] === false}
@@ -114,7 +114,7 @@ const Form = ({ config, onFormChange }) => {
               ) : null}
             </div>
           ))}
-          <button onClick={saveData}>Submit</button>
+          <button className = "submit-button" onClick={saveData}>Submit</button>
         </div>
       );
       
