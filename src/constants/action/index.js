@@ -1,5 +1,5 @@
-export const action = {
-    action:"",
+export const Action = {
+    action:"ACTION",
     nextState:"",
     roles:[]
 }

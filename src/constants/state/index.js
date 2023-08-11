@@ -1,6 +1,6 @@
-export var state = {
+export var State = {
     sla:"",
-    state:null,
+    state:"STATE",
     applicationStatus:"",
     docUploadRequired:"",
     isStartState:"",

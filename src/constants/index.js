@@ -1,14 +1,16 @@
-import { state } from "./state";
-import {action } from "./action";
-import { role } from "./role";
+import { State } from "./state";
+import {Action } from "./action";
+import { Role } from "./role";
 
 export const ItemTypes = {
-    State:"state",
-    Action:"action",
-    Role:"role"
+    State:"State",
+    Action:"Action",
+    Role:"Role",
+    Status:"Status"
 }
 export const ItemData = {
-    "State" : state,
-    "Action": action,
-    "Role"  : role
+    "State" : State,
+    "Action": Action,
+    "Role"  : Role,
+    "Status": ""
 }

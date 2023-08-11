@@ -1,3 +1,3 @@
-export const role = {
-    
+export const Role = {
+    role:"ROLE"
 }
