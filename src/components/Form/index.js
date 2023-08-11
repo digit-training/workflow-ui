@@ -1,7 +1,8 @@
 import "./index.css"
 import React, { useState } from 'react';
 
-const Form = ({ config, onFormChange }) => {
+const Form = ({ type,dispatch ,config, onFormChange }) => {
+
   const handleChange = (key, value) => {
     setData((prevData) => ({ ...prevData, [key]: value }));
   };
@@ -19,7 +20,9 @@ const Form = ({ config, onFormChange }) => {
       const [data, setData] =  useState({});
 
       const saveData = () =>{
-        console.log(data);
+        console.log("Congratulations Data saved!!!")
+        onFormChange(data);
+        // console.log(data);
       }
       
     
