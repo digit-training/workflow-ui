@@ -2,14 +2,19 @@ import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../constants";
 import { useEffect, useState,useReducer } from "react";
 import { TypeConfigMap } from "../../constants";
-import { ItemData } from "../../constants";
-import Card from "../Card";
+// import { ItemData } from "../../constants";
+// import Card from "../Card";
 import WrapperCard from "../Card/WrapperCard";
 import Popup from "../Popup";
-import CircleCard from "../Card/CircleCard";
-import DiamondCard from "../Card/RhombusCard";
-import SquareCard from "../Card/SquareCard";
-import TriangleCard from "../Card/TriangleCard";
+// import CircleCard from "../Card/CircleCard";
+// import RhombusCard from "../Card/RhombusCard";
+// import SquareCard from "../Card/SquareCard";
+// import TriangleCard from "../Card/TriangleCard";
+// import RectangleCard from "../Card/RectangleCard";
+import {req} from "../../constants/request";
+import axios from 'axios';
+
+import './index.css';
 
 const initialState = {
   states : [],
@@ -17,6 +22,8 @@ const initialState = {
   roles  : [],
   droppedElement : null
 };
+
+let wfRequest = req;
 
 const reducer = (state,action) => {
   // console.log(action.type,action.payload) ;
@@ -45,7 +52,7 @@ const reducer = (state,action) => {
   }
   else if(action.type === "Role")
   {
-    console.log("Role action is dispatched\n" + (action.payload));
+    // console.log("Role action is dispatched\n" + (action.payload));
     const updatedRolesList = action.payload ? [...state.roles , JSON.parse(action.payload)] : state.roles;
     const updatedState = {
       ...state,
@@ -53,7 +60,7 @@ const reducer = (state,action) => {
       droppedElement : action.type
 
     };
-    console.log("Updated states is\n"+JSON.stringify(updatedState));
+    // console.log("Updated states is\n"+JSON.stringify(updatedState));
     localStorage.setItem("wf",JSON.stringify(updatedState));
     return updatedState;
 
@@ -66,13 +73,14 @@ const reducer = (state,action) => {
   }
   else if(action.type === "SUBMITTED")
   {
-    console.log("SUBMITTED ACTION IS PERFORMED\n"+JSON.stringify(state));
+    console.log("SUBMITTED ACTION IS PERFORMED\n");
     return {
       ...state,
       droppedElement : null
     };
   }
 }
+
 
 const DropTargetComponent = () => {
 
@@ -81,7 +89,10 @@ const DropTargetComponent = () => {
     // this will fire then component will render or vice versa ?
     useEffect(()=>{
       var workflowObject = localStorage.getItem("wf");
+      var wfReq  = localStorage.getItem("wfRequest");
       if(workflowObject)dispatch({type:"RENDERED",payload:workflowObject});
+      if(wfReq) wfRequest = wfReq;
+      console.log("Fetched the wf Request details from local storage " + wfRequest);
       dispatch({type: "SUBMITTED", payload : ""});
 
       // set the droppedElement to null here
@@ -105,33 +116,101 @@ const DropTargetComponent = () => {
       }),
     });
   
+    const generateWorkflow = () => {
+      // console.log("Final state is: "+JSON.stringify(state));
+      let wf = {
+            tenantId:           "pb",
+            businessService:    "DTR",
+            business:           "death-services",
+            businessServiceSla: 432000000,
+            states:             []
+      };
+      const newState = state.states.map((data)=>{
+        let newData = data;
+        let actionIdx = parseInt(data["actions"]);
+        let currAction = state.actions[actionIdx];
+        const roleIdx = currAction ? parseInt(currAction.roles) : null;
+        const role = roleIdx!=null ? state.roles[roleIdx] : null;
+        let newAction = currAction;
+        if(newAction) newAction["roles"] = [role];
+        if(newData)   newData["actions"] = [newAction];
+        return newData;
+      })
+      wf.states = newState;
+      // if(wf) wfRequest.BusinessServices.push(wf);
+      console.log("Final workflow looks something like this: "+JSON.stringify(wfRequest));
+      localStorage.setItem("wfRequest",JSON.stringify(wfRequest));
+      
+      const url = "http://localhost:8282/egov-workflow-v2/egov-wf/businessservice/_create";
+      const requestBody = wfRequest;
+      // fetch(url, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json", // Set the content type
+      //     // Add any other headers as needed
+      //   },
+      //   body: JSON.stringify(requestBody), // Convert the object to JSON
+      // })
+      //   .then(response => response.json()) // Parse the response as JSON
+      //   .then(data => {
+      //     // Handle the response data
+      //     console.log("Response to the businessservice create api is :", data);
+      //   })
+      //   .catch(error => {
+      //     // Handle errors
+      //     console.error("Error:", error);
+      //   });
+
+      axios.post(url, requestBody, {
+        headers: {
+          "Content-Type": "application/json", // Set the content type
+          // Add any other headers as needed
+        }
+      })
+      .then(response => {
+        // Handle the response data
+        console.log("Response to the businessservice create api is:", response.data);
+      })
+      .catch(error => {
+        // Handle errors
+        console.error("Error:", error);
+      });
+    }
+
     return (
-      <div className="right-partition" ref={drop} style={{ border: '1px dashed black' }}>
-        {canDrop ? 'Release to drop' : 'Drag compatible items here'}
+      <div className="right-partition" ref={drop} >
+        {/* {canDrop ? 'Release to drop' : 'Drag compatible items here'} */}
         {
         state.droppedElement!=null ? <Popup state={state} type={state.droppedElement} dispatch={dispatch} attribute={state.droppedElement} config={TypeConfigMap[state.droppedElement]}/>: 
         <>
+        <div className="cloumn state">
+        <h2>STATES</h2>
         {
           state["states"].map((data)=>{
-            return data ? <SquareCard functionality={data.state}/> : <></>
-              // return <WrapperCard functionality={data.state}/>
+            return data ? <WrapperCard functionality={data.state} type={ItemTypes.State}/> : <></>
           })
         }
+        </div>
+        <div className="cloumn action">
+        <h2>ACTIONS</h2>
         {
           state["actions"].map((data)=>{
-            return data ? <TriangleCard functionality={data.action}/> : <></>
-            // return <WrapperCard functionality={data.action}/>
+            return data ? <WrapperCard functionality={data.action} type={ItemTypes.Action}/> : <></>
           })
         }
+        </div>
+        <div className="cloumn role">
+        <h2>ROLES</h2>
         {
           state["roles"].map((data)=>{
-            return (data) ? <CircleCard functionality={data.roles}/> : <></>
-            // return <WrapperCard functionality={data.role}/>
+            return (data) ? <WrapperCard functionality={data.roles} type={ItemTypes.Role}/> : <></>
           })
         }
+        </div>
         {/* {console.log("My final state is"+ JSON.stringify(state) )} */}
         </>
-        }      
+        }    
+        {/* <button onClick={generateWorkflow}>Save and generate Workflow</button>   */}
       </div>
     );
   };

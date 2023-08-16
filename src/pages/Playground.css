@@ -1,7 +1,6 @@
 * {
   margin: 0;
 }
-
 .playground-container {
   display: flex;
   flex-direction: row;
@@ -9,17 +8,17 @@
   width: 100vw;
   overflow: auto;
 }
-
 .left-partition {
   background-color: bisque;
-  flex: 30%;
+  flex: 20%;
 }
-
 .right-partition {
   background-color: pink;
-  flex: 70%;
-  overflow: auto;
+  flex: 80%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
+  overflow: auto;
+  border: 5px solid black;
+  justify-content: space-between; 
 }

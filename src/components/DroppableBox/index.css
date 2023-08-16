@@ -1,0 +1,26 @@
+/* .right-partition {
+    border: 5px solid black;
+} */
+/* .column {
+    padding: 10px;
+    flex: 33.33%;
+    flex-grow: 1;
+    border: '1px dashed black'
+} */
+
+
+  .column {
+    padding: 10px;
+    flex: 0 0 calc(33.33% - 20px);
+    border: 1px dashed black;
+  }
+  
+/* .state {
+    background-color: lightgrey;
+}
+.action {
+    background-color: coral;
+}
+.role {
+    background-color: khaki;
+} */
