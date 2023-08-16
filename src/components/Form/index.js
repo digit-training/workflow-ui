@@ -1,5 +1,6 @@
 import "./index.css";
 import React, { useState } from "react";
+import { requiredFields } from "../../constants/demoConfigs/requiredFields";
 
 const Form = ({ state, type, dispatch, config, onFormChange }) => {
   const handleChange = (key, value) => {
@@ -17,11 +18,28 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
   }
 
   const [data, setData] = useState({});
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const validateFields = () => {
+    // const errors = {};
+    Object.keys(config).forEach((key) => {
+      if (requiredFields.includes(key) && !data[key]) {
+        validationErrors[key] = `${formatString(key)} is required.`;
+      }
+    });
+    setValidationErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0; // Returns true if there are no errors
+  };
 
   const saveData = () => {
-    console.log("Congratulations Data saved!!!");
-    console.log(data);
-    onFormChange(data);
+    if (validateFields()) {
+      console.log("Congratulations Data saved!!!");
+      console.log(data);
+      onFormChange(data);
+    }
+    else {
+      alert(JSON.stringify(Object.values(validationErrors)));
+    }
   };
 
   return (
@@ -64,6 +82,7 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
                   value="true"
                   // checked={formData[key] === true}
                   onChange={() => handleChange(key, true)}
+                  required
                 />
                 True
               </label>
