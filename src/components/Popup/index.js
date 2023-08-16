@@ -4,7 +4,7 @@ import { state } from "../../constants/demoConfigs/state";
 import React, { useState } from 'react';
 import Form from "../Form";
 
-export default function Popup({type,attribute ,config , dispatch}){
+export default function Popup({state,type,attribute ,config , dispatch}){
 
   const [formData, setFormData] = useState({});
 
@@ -23,7 +23,7 @@ export default function Popup({type,attribute ,config , dispatch}){
     <div className="custom-popup">
       <div className="popup-content">
       <h1>{attribute}</h1>
-      <Form type={type} dispatch = {dispatch} config = {config} formData={state} onFormChange={handleFormChange} />
+      <Form state={state} type={type} dispatch = {dispatch} config = {config} formData={state} onFormChange={handleFormChange} />
       </div>
     </div>
   );

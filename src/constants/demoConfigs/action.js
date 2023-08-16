@@ -1,4 +1,5 @@
 export const action = {
     action:String,
-    nextState: String
+    nextState: String,
+    roles:[]
 }

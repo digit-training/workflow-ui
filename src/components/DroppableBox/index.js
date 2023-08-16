@@ -105,7 +105,7 @@ const DropTargetComponent = () => {
       <div className="right-partition" ref={drop} style={{ border: '1px dashed black' }}>
         {canDrop ? 'Release to drop' : 'Drag compatible items here'}
         {
-        state.droppedElement!=null ? <Popup type={state.droppedElement} dispatch={dispatch} attribute={state.droppedElement} config={TypeConfigMap[state.droppedElement]}/>: 
+        state.droppedElement!=null ? <Popup state={state} type={state.droppedElement} dispatch={dispatch} attribute={state.droppedElement} config={TypeConfigMap[state.droppedElement]}/>: 
         <>
         {
           state["states"].map((data)=>{
@@ -125,7 +125,7 @@ const DropTargetComponent = () => {
             // return <WrapperCard functionality={data.role}/>
           })
         }
-        {console.log("My final state is"+ JSON.stringify(state) )}
+        {/* {console.log("My final state is"+ JSON.stringify(state) )} */}
         </>
         }      
       </div>
