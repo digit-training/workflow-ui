@@ -22,9 +22,10 @@ const reducer = (state,action) => {
   // console.log(action.type,action.payload) ;
   if(action.type === "State")
   {
+    const updatedStateList = action.payload ? [...state.states , JSON.parse(action.payload)] : state.states;     // to handle the null payload
     const updatedState= {
       ...state,
-      states : [...state.states , JSON.parse(action.payload)],
+      states : updatedStateList,
       droppedElement : action.type
     };
     localStorage.setItem("wf",JSON.stringify(updatedState));
@@ -32,9 +33,10 @@ const reducer = (state,action) => {
   }
   else if(action.type === "Action")
   {
+    const updatedActionsList = action.payload ? [...state.actions , JSON.parse(action.payload)] : state.actions;  // to handle the null payload
     const updatedState = {
       ...state,
-      actions : [...state.actions , JSON.parse(action.payload)],
+      actions : updatedActionsList,
       droppedElement : action.type
 
     };
@@ -43,26 +45,28 @@ const reducer = (state,action) => {
   }
   else if(action.type === "Role")
   {
-    console.log("Role action is dispatched" + (action.payload));
+    console.log("Role action is dispatched\n" + (action.payload));
+    const updatedRolesList = action.payload ? [...state.roles , JSON.parse(action.payload)] : state.roles;
     const updatedState = {
       ...state,
-      roles : [...state.roles , JSON.parse(action.payload)],
+      roles : updatedRolesList,
       droppedElement : action.type
 
     };
-    localStorage.setItem("wf",JSON.stringify(state));
+    console.log("Updated states is\n"+JSON.stringify(updatedState));
+    localStorage.setItem("wf",JSON.stringify(updatedState));
     return updatedState;
 
   }
   else if(action.type === "RENDERED")
   {
-    console.log("local storage state synced up");
+    console.log("local storage state synced up\n");
     var obj = JSON.parse(action.payload);
     return obj;
   }
   else if(action.type === "SUBMITTED")
   {
-    console.log("SUBMITTED ACTION IS PERFORMED"+JSON.stringify(state));
+    console.log("SUBMITTED ACTION IS PERFORMED\n"+JSON.stringify(state));
     return {
       ...state,
       droppedElement : null
@@ -88,7 +92,7 @@ const DropTargetComponent = () => {
       accept: [ItemTypes.Action, ItemTypes.Role,ItemTypes.State],
       drop: () => {
 
-        dispatch({type:type , payload : null });
+        dispatch({type:type , payload : null });   // this is the reason of having null in the workflow
         // localStorage.setItem("wf",JSON.stringify(state));
         // another state for popUP
         // reset the state to null again 
