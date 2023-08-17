@@ -18,7 +18,7 @@ import CircleCard from "../Card/CircleCard";
 import DiamondCard from "../Card/RhombusCard";
 import SquareCard from "../Card/SquareCard";
 import TriangleCard from "../Card/TriangleCard";
-import {req} from "../../constants/request";
+// import {req} from "../../constants/request";
 
 const initialState = {
   states : [],

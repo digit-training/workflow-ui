@@ -13,7 +13,7 @@ root.render(
   <React.StrictMode>
     <App />
     {/* <DropdownCheckbox/> */}
-    {/* <YourFormComponent/> */}
+    <YourFormComponent/>
     {/* <MultiSelectDropdown/> */}
     {/* <Popup config={role}/> */}
   </React.StrictMode>
