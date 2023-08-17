@@ -2,10 +2,18 @@ import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../constants";
 import { useEffect, useState,useReducer } from "react";
 import { TypeConfigMap } from "../../constants";
-import { ItemData } from "../../constants";
-import Card from "../Card";
+// import { ItemData } from "../../constants";
+// import Card from "../Card";
 import WrapperCard from "../Card/WrapperCard";
 import Popup from "../Popup";
+// import CircleCard from "../Card/CircleCard";
+// import RhombusCard from "../Card/RhombusCard";
+// import SquareCard from "../Card/SquareCard";
+// import TriangleCard from "../Card/TriangleCard";
+// import RectangleCard from "../Card/RectangleCard";
+import {req} from "../../constants/request";
+
+import './index.css';
 import CircleCard from "../Card/CircleCard";
 import DiamondCard from "../Card/RhombusCard";
 import SquareCard from "../Card/SquareCard";
@@ -157,33 +165,38 @@ const DropTargetComponent = () => {
           console.error("Error:", error);
         });
       
-
     }
 
     return (
-      <div className="right-partition" ref={drop} style={{ border: '1px dashed black' }}>
-        {canDrop ? 'Release to drop' : 'Drag compatible items here'}
+      <div className="right-partition" ref={drop} >
+        {/* {canDrop ? 'Release to drop' : 'Drag compatible items here'} */}
         {
         state.droppedElement!=null ? <Popup state={state} type={state.droppedElement} dispatch={dispatch} attribute={state.droppedElement} config={TypeConfigMap[state.droppedElement]}/>: 
         <>
+        <div className="cloumn state">
+        <h2>STATES</h2>
         {
           state["states"].map((data)=>{
-            return data ? <SquareCard functionality={data.state}/> : <></>
-              // return <WrapperCard functionality={data.state}/>
+            return data ? <WrapperCard functionality={data.state} type={ItemTypes.State}/> : <></>
           })
         }
+        </div>
+        <div className="cloumn action">
+        <h2>ACTIONS</h2>
         {
           state["actions"].map((data)=>{
-            return data ? <TriangleCard functionality={data.action}/> : <></>
-            // return <WrapperCard functionality={data.action}/>
+            return data ? <WrapperCard functionality={data.action} type={ItemTypes.Action}/> : <></>
           })
         }
+        </div>
+        <div className="cloumn role">
+        <h2>ROLES</h2>
         {
           state["roles"].map((data)=>{
-            return (data) ? <CircleCard functionality={data.roles}/> : <></>
-            // return <WrapperCard functionality={data.role}/>
+            return (data) ? <WrapperCard functionality={data.roles} type={ItemTypes.Role}/> : <></>
           })
         }
+        </div>
         {/* {console.log("My final state is"+ JSON.stringify(state) )} */}
         </>
         }    
