@@ -1,8 +1,8 @@
 export const requiredFields = [
-  "state",
-  "isStartState",
-  "isTerminateState",
-  "actions",
-  "nextState",
-  "roles",
+  // "state",
+  // "isStartState",
+  // "isTerminateState",
+  // "actions",
+  // "nextState",
+  // "roles",
 ];

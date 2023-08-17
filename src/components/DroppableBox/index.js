@@ -12,9 +12,13 @@ import Popup from "../Popup";
 // import TriangleCard from "../Card/TriangleCard";
 // import RectangleCard from "../Card/RectangleCard";
 import {req} from "../../constants/request";
-import axios from 'axios';
 
 import './index.css';
+import CircleCard from "../Card/CircleCard";
+import DiamondCard from "../Card/RhombusCard";
+import SquareCard from "../Card/SquareCard";
+import TriangleCard from "../Card/TriangleCard";
+import {req} from "../../constants/request";
 
 const initialState = {
   states : [],
@@ -143,38 +147,24 @@ const DropTargetComponent = () => {
       
       const url = "http://localhost:8282/egov-workflow-v2/egov-wf/businessservice/_create";
       const requestBody = wfRequest;
-      // fetch(url, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json", // Set the content type
-      //     // Add any other headers as needed
-      //   },
-      //   body: JSON.stringify(requestBody), // Convert the object to JSON
-      // })
-      //   .then(response => response.json()) // Parse the response as JSON
-      //   .then(data => {
-      //     // Handle the response data
-      //     console.log("Response to the businessservice create api is :", data);
-      //   })
-      //   .catch(error => {
-      //     // Handle errors
-      //     console.error("Error:", error);
-      //   });
-
-      axios.post(url, requestBody, {
+      fetch(url, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json", // Set the content type
           // Add any other headers as needed
-        }
+        },
+        body: JSON.stringify(requestBody), // Convert the object to JSON
       })
-      .then(response => {
-        // Handle the response data
-        console.log("Response to the businessservice create api is:", response.data);
-      })
-      .catch(error => {
-        // Handle errors
-        console.error("Error:", error);
-      });
+        .then(response => response.json()) // Parse the response as JSON
+        .then(data => {
+          // Handle the response data
+          console.log("Response to the businessservice create api is :", data);
+        })
+        .catch(error => {
+          // Handle errors
+          console.error("Error:", error);
+        });
+      
     }
 
     return (
@@ -210,7 +200,7 @@ const DropTargetComponent = () => {
         {/* {console.log("My final state is"+ JSON.stringify(state) )} */}
         </>
         }    
-        {/* <button onClick={generateWorkflow}>Save and generate Workflow</button>   */}
+        <button onClick={generateWorkflow}>Save and generate Workflow</button>  
       </div>
     );
   };

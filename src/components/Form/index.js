@@ -28,6 +28,7 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
       }
     });
     setValidationErrors(validationErrors);
+    // return 1;  // remove this after fixing drop-downs
     return Object.keys(validationErrors).length === 0; // Returns true if there are no errors
   };
 
@@ -56,10 +57,12 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
             >
               <option value="">Select an option</option>
               {/* TO DO: Filter the state array for null values of data */}
+              {}
               {state[key].map((data, index) =>
-                data && index ? (
+                data ? (
                   <option key={index} value={index}>
-                    {data.action}
+                    {console.log(key)}
+                    { key === "actions" ? data.action : data.roles}
                   </option>
                 ) : (
                   <></>
