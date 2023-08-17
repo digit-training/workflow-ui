@@ -93,9 +93,9 @@ const DropTargetComponent = () => {
     // this will fire then component will render or vice versa ?
     useEffect(()=>{
       var workflowObject = localStorage.getItem("wf");
-      var wfReq  = localStorage.getItem("wfRequest");
+      // var wfReq  = localStorage.getItem("wfRequest");
       if(workflowObject)dispatch({type:"RENDERED",payload:workflowObject});
-      if(wfReq) wfRequest = wfReq;
+      // if(wfReq) wfRequest = wfReq;
       console.log("Fetched the wf Request details from local storage " + wfRequest);
       dispatch({type: "SUBMITTED", payload : ""});
 
@@ -119,7 +119,7 @@ const DropTargetComponent = () => {
         isOver: !!monitor.isOver(),
       }),
     });
-  
+    // TODO: Write a WorkFlow validator to log errors in wf
     const generateWorkflow = () => {
       // console.log("Final state is: "+JSON.stringify(state));
       let wf = {
@@ -141,11 +141,11 @@ const DropTargetComponent = () => {
         return newData;
       })
       wf.states = newState;
-      // if(wf) wfRequest.BusinessServices.push(wf);
+      if(wf) wfRequest.BusinessServices.push(wf);
       console.log("Final workflow looks something like this: "+JSON.stringify(wfRequest));
       localStorage.setItem("wfRequest",JSON.stringify(wfRequest));
       
-      const url = "http://localhost:8282/egov-workflow-v2/egov-wf/businessservice/_create";
+      const url = "/egov-workflow-v2/egov-wf/businessservice/_create";
       const requestBody = wfRequest;
       fetch(url, {
         method: "POST",
@@ -171,7 +171,8 @@ const DropTargetComponent = () => {
       <div className="right-partition" ref={drop} >
         {/* {canDrop ? 'Release to drop' : 'Drag compatible items here'} */}
         {
-        state.droppedElement!=null ? <Popup state={state} type={state.droppedElement} dispatch={dispatch} attribute={state.droppedElement} config={TypeConfigMap[state.droppedElement]}/>: 
+        state.droppedElement!=null ? <Popup state={state} type={state.droppedElement} dispatch={dispatch} attribute={state.droppedElement} config={TypeConfigMap[state.droppedElement]}/>: <></>
+        }
         <>
         <div className="cloumn state">
         <h2>STATES</h2>
@@ -199,7 +200,7 @@ const DropTargetComponent = () => {
         </div>
         {/* {console.log("My final state is"+ JSON.stringify(state) )} */}
         </>
-        }    
+          
         <button onClick={generateWorkflow}>Save and generate Workflow</button>  
       </div>
     );
