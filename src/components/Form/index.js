@@ -68,6 +68,7 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
                   className="input-container"
                   type="radio"
                   value="true"
+                  name={key}
                   // checked={formData[key] === true}
                   onChange={() => handleChange(key, true)}
                   required
@@ -79,6 +80,7 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
                   className="input-container"
                   type="radio"
                   value="false"
+                  name={key}
                   // checked={formData[key] === false}
                   onChange={() => handleChange(key, false)}
                 />
