@@ -1,6 +1,7 @@
 import "./index.css";
 import React, { useState } from "react";
 import { requiredFields } from "../../constants/demoConfigs/requiredFields";
+import DropdownCheckBox from "../MultiDropDown";
 
 const Form = ({ state, type, dispatch, config, onFormChange }) => {
   const handleChange = (key, value) => {
@@ -49,34 +50,18 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
         <div key={key}>
           <label className="label">{formatString(key)}</label>
           <br />
-          {Array.isArray(config[key]) ? (
-            <select
-              className="input-container"
-              // value={formData[key] || ''}
-              onChange={(e) => handleChange(key, e.target.value)}
-            >
-              <option value="">Select an option</option>
-              {/* TO DO: Filter the state array for null values of data */}
-              {}
-              {state[key].map((data, index) =>
-                data ? (
-                  <option key={index} value={index}>
-                    {console.log(key)}
-                    { key === "actions" ? data.action : data.roles}
-                  </option>
-                ) : (
-                  <></>
-                )
-              )}
-            </select>
-          ) : config[key] === String ? (
+          {Array.isArray(config[key]) ? 
+          (
+            <DropdownCheckBox key={key} options={state[key]}/>
+          ) 
+          : config[key] === String ? (
             <input
               className="input-container"
               type="text"
-              // value={formData[key] || ''}
               onChange={(e) => handleChange(key, e.target.value)}
             />
-          ) : config[key] === Boolean ? (
+          ) 
+          : config[key] === Boolean ? (
             <div>
               <label>
                 <input
@@ -100,7 +85,8 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
                 False
               </label>
             </div>
-          ) : null}
+          ) 
+          : null}
         </div>
       ))}
       <button onClick={saveData}>Submit</button>
