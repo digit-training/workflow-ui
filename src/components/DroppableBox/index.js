@@ -108,24 +108,39 @@ const DropTargetComponent = () => {
       // TODO : Shift this to constants
       let wf = {
             tenantId:           "pb",
-            businessService:    "DTR",
+            businessService:    "WF_PLAYGROUND",
             business:           "death-services",
             businessServiceSla: 432000000,
             states:             []
       };
       
       // shift this to utils
-      const newState = state.states.map((data)=>{
+      let newState = state.states.map((data)=>{
         let newData = data;
-        let actionIdx = parseInt(data["actions"]);
-        let currAction = state.actions[actionIdx];
-        const roleIdx = currAction ? parseInt(currAction.roles) : null;
-        const role = roleIdx!=null ? state.roles[roleIdx] : null;
-        let newAction = currAction;
-        if(newAction) newAction["roles"] = [role];
-        if(newData)   newData["actions"] = [newAction];
+        // check and iterate over actions array
+        let newActions = [];
+        if(data["actions"]){
+
+          newActions = data["actions"].map((actionIdx)=>{
+            console.log(actionIdx);
+            // roles array
+            let newRoles = state.actions[actionIdx]["roles"].map((roleIdx) => {
+              let currRole =  state.roles[roleIdx]["roles"];
+              return currRole;
+            })
+            
+            // set roles array
+            let newAction = state.actions[actionIdx];
+            if(newAction) newAction["roles"] = newRoles;
+            return newAction;
+            
+          })
+        }
+
+        if(newData)   newData["actions"] = newActions;
         return newData;
       })
+
       wf.states = newState;
       if(wf) wfRequest.BusinessServices.push(wf);
       console.log("Final workflow looks something like this: "+JSON.stringify(wfRequest));

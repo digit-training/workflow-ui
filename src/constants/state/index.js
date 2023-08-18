@@ -4,7 +4,7 @@ export var State = {
     applicationStatus:"",
     docUploadRequired:"",
     isStartState:"",
-    isTerminatedState:"",
+    isTerminateState:"",  // change to isTerminateState
     actions:[],
     
 }
