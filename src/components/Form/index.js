@@ -29,7 +29,6 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
       }
     });
     setValidationErrors(validationErrors);
-    // return 1;  // remove this after fixing drop-downs
     return Object.keys(validationErrors).length === 0; // Returns true if there are no errors
   };
 
@@ -52,7 +51,11 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
           <br />
           {Array.isArray(config[key]) ? 
           (
-            <DropdownCheckBox key={key} options={state[key]}/>
+            <>
+            {console.log(key)}
+            {/* WHY KEY AS A PROP IS NOT GETTING INSERTED , SHOWING NULL ?? */}
+            <DropdownCheckBox type={key} options={state[key]} handleDropDown={setData} data={data}/>
+            </>
           ) 
           : config[key] === String ? (
             <input

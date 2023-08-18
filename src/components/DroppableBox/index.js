@@ -2,23 +2,11 @@ import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../constants";
 import { useEffect, useState,useReducer } from "react";
 import { TypeConfigMap } from "../../constants";
-// import { ItemData } from "../../constants";
-// import Card from "../Card";
 import WrapperCard from "../Card/WrapperCard";
 import Popup from "../Popup";
-// import CircleCard from "../Card/CircleCard";
-// import RhombusCard from "../Card/RhombusCard";
-// import SquareCard from "../Card/SquareCard";
-// import TriangleCard from "../Card/TriangleCard";
-// import RectangleCard from "../Card/RectangleCard";
 import {req} from "../../constants/request";
 
 import './index.css';
-import CircleCard from "../Card/CircleCard";
-import DiamondCard from "../Card/RhombusCard";
-import SquareCard from "../Card/SquareCard";
-import TriangleCard from "../Card/TriangleCard";
-// import {req} from "../../constants/request";
 
 const initialState = {
   states : [],
@@ -90,16 +78,12 @@ const DropTargetComponent = () => {
 
     const [state,dispatch] = useReducer(reducer,initialState);
 
-    // this will fire then component will render or vice versa ?
     useEffect(()=>{
       var workflowObject = localStorage.getItem("wf");
-      // var wfReq  = localStorage.getItem("wfRequest");
       if(workflowObject)dispatch({type:"RENDERED",payload:workflowObject});
-      // if(wfReq) wfRequest = wfReq;
       console.log("Fetched the wf Request details from local storage " + wfRequest);
       dispatch({type: "SUBMITTED", payload : ""});
 
-      // set the droppedElement to null here
     },[])
 
 
@@ -108,9 +92,7 @@ const DropTargetComponent = () => {
       drop: () => {
 
         dispatch({type:type , payload : null });   // this is the reason of having null in the workflow
-        // localStorage.setItem("wf",JSON.stringify(state));
-        // another state for popUP
-        // reset the state to null again 
+
       },
       collect: (monitor) => ({
         data : monitor.getItem(),
@@ -122,6 +104,8 @@ const DropTargetComponent = () => {
     // TODO: Write a WorkFlow validator to log errors in wf
     const generateWorkflow = () => {
       // console.log("Final state is: "+JSON.stringify(state));
+
+      // TODO : Shift this to constants
       let wf = {
             tenantId:           "pb",
             businessService:    "DTR",
@@ -129,6 +113,8 @@ const DropTargetComponent = () => {
             businessServiceSla: 432000000,
             states:             []
       };
+      
+      // shift this to utils
       const newState = state.states.map((data)=>{
         let newData = data;
         let actionIdx = parseInt(data["actions"]);
