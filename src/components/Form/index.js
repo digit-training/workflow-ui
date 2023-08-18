@@ -64,6 +64,14 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
               onChange={(e) => handleChange(key, e.target.value)}
             />
           ) 
+          : config[key] === Number ? (
+            <input
+              className="input-container"
+              type="number"
+              min="0"
+              onChange={(e) => handleChange(key, e.target.value)}
+            />
+          )
           : config[key] === Boolean ? (
             <div>
               <label>
