@@ -1,10 +1,10 @@
 export const state = {
-    sla: String,
+    sla: Number,
     state: String,
     applicationStatus: String,
     docUploadRequired: Boolean,
     isStartState: Boolean,
-    isTerminatedState: Boolean,
+    isTerminateState: Boolean,
     actions:[
         {
             "action": String,
