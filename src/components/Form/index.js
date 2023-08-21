@@ -102,7 +102,7 @@ const Form = ({ state, type, dispatch, config, onFormChange }) => {
           : null}
         </div>
       ))}
-      <button onClick={saveData}>Submit</button>
+      <button className="submit-button" onClick={saveData}>Submit</button>
     </div>
   );
 };
