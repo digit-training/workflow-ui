@@ -201,8 +201,9 @@ const DropTargetComponent = () => {
         </div>
         {/* {console.log("My final state is"+ JSON.stringify(state) )} */}
         </>
-          
-        <button onClick={generateWorkflow}>Save and generate Workflow</button>  
+          <div className="submit-bar">
+          <button onClick={generateWorkflow}>Save and generate Workflow</button>  
+          </div>
       </div>
     );
   };

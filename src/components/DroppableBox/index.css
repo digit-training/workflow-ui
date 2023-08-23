@@ -24,3 +24,38 @@
 .role {
     background-color: khaki;
 } */
+
+.submit-bar{
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.16);
+    left: 0;
+    max-width: none;
+    z-index: 999;
+    position: fixed;
+    bottom: 0;
+    --bg-opacity: 1;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, var(--bg-opacity));
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 24px;
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.submit-bar button{
+    height: 2.5rem;
+    --bg-opacity: 1;
+    background-color: #f47738;
+    background-color: rgba(244, 119, 56, var(--bg-opacity));
+    text-align: center;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border: 0px;
+    cursor: pointer;
+}
